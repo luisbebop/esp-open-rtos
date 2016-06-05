@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sysparam.h>
 
+#include <esp/uart.h>
 #include <espressif/spi_flash.h>
 
 #define CMD_BUF_SIZE 5000
@@ -229,5 +230,6 @@ void sysparam_editor_task(void *pvParameters) {
 
 void user_init(void)
 {
+    uart_set_baud(0, 115200);
     xTaskCreate(sysparam_editor_task, (signed char *)"sysparam_editor_task", 512, NULL, 2, NULL);
 }
