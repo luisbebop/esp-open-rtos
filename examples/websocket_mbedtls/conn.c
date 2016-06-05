@@ -213,8 +213,10 @@ void ConnClose(int sslHandle) {
 	if (sslFD) {
 		mbedtls_ssl_close_notify( sslFD );
 
-		mbedtls_net_free( sslFD->p_bio );
-		free(sslFD->p_bio);
+        if (sslFD->p_bio) {
+		    mbedtls_net_free( sslFD->p_bio );
+		    free(sslFD->p_bio);
+        }
 				
 		mbedtls_ssl_free( sslFD );
 		free(sslFD);
